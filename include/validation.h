@@ -5,6 +5,7 @@
 using namespace std;
 
 bool isValidemail(string& email);
+bool isValidpass(string& pass);
 
 bool isValidphone(string& phone_num);
 

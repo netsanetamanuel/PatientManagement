@@ -1,16 +1,21 @@
 # depslib dependency file v1.0
-1764959992 source:c:\users\cj\desktop\patientmgt\patientmangementv0.1\main.cpp
+1765404204 source:c:\users\cj\desktop\patientmgt\patientmangementv0.1\main.cpp
 	<iostream>
+	<fstream>
 	<cstdlib>
 	"Patient.h"
+	"Doctor.h"
 	"validation.h"
 
-1764964323 c:\users\cj\desktop\patientmgt\patientmangementv0.1\include\patient.h
+1765523020 c:\users\cj\desktop\patientmgt\patientmangementv0.1\include\patient.h
+	<fstream>
 
-1764964836 source:c:\users\cj\desktop\patientmgt\patientmangementv0.1\src\patient.cpp
+1765521677 source:c:\users\cj\desktop\patientmgt\patientmangementv0.1\src\patient.cpp
 	<iostream>
 	<string>
 	<algorithm>
+	<fstream>
+	<sstream>
 	"Patient.h"
 	"validation.h"
 
@@ -25,11 +30,21 @@
 	<algorithm>
 	"string"
 
-1764964822 c:\users\cj\desktop\patientmgt\patientmangementv0.1\include\validation.h
+1765520386 c:\users\cj\desktop\patientmgt\patientmangementv0.1\include\validation.h
 	<string>
 
-1764964903 source:c:\users\cj\desktop\patientmgt\patientmangementv0.1\src\validation.cpp
+1765520910 source:c:\users\cj\desktop\patientmgt\patientmangementv0.1\src\validation.cpp
 	<algorithm>
 	<string>
 	"validation.h"
+
+1765521142 source:c:\users\cj\desktop\patientmgt\patientmangementv0.1\src\doctor.cpp
+	<iostream>
+	<string>
+	<fstream>
+	<sstream>
+	"Doctor.h"
+
+1765402075 c:\users\cj\desktop\patientmgt\patientmangementv0.1\include\doctor.h
+	<string>
 

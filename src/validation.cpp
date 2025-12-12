@@ -4,19 +4,25 @@
 
 using namespace std;
 
+bool isValidpass(string& pass){
 
+    if(pass.length()<6)
+        return false;
+    return true;
+}
 
 bool isValidemail(string& email){
 
-    auto at = find(email.begin(), email.end(), '@');
-    auto dot = find(at, email.end(), '.');
+    auto att = find(email.begin(), email.end(), '@');
+    auto dot = find(att, email.end(), '.');
 
-    if (at == email.end() || dot == email.end())
+    if (att == email.end() || dot == email.end())
         return false;
 
     return true;
 
 }
+
 
 bool isValidphone(string& phone_num){
     if(phone_num.length()<7 || phone_num.length()>15)
@@ -31,14 +37,15 @@ bool isValidphone(string& phone_num){
 }
 
 bool isValiddob(int& years ,int& months ,int& days){
-
+        // year validation needed
     if (months < 1 || months > 12)
         return false;
 
 
     if (days < 1 || days > 31)
         return false;
-
+    if(years <1000 && years >9999)
+        return false;
 
     if ((months == 4 || months == 6 || months == 9 || months == 11) && days > 30)
         return false;

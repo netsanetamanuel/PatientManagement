@@ -1,0 +1,5 @@
+D1001|John|Smith|Cardiology|john.smith@hospital.com|9876543210|pass123|15|101|Mon:10:00-12:00,Tue:14:00-16:00
+D1002|Alice|Brown|Pediatrics|alice.brown@hospital.com|9876543220|pwd456|10|102|Mon:09:00-12:00,Wed:13:00-15:00
+D1003|Michael|Lee|Neurology|michael.lee@hospital.com|9876543230|abc789|20|103|Tue:08:00-11:00,Thu:13:00-17:00
+D1004|Sophia|Davis|General Medicine|sophia.davis@hospital.com|9876543240|doc321|12|104|Mon:09:00-11:30,Fri:14:00-16:30
+D1005|James|Wilson|Dermatology|james.wilson@hospital.com|9876543250|skin987|8|105|Tue:10:00-13:00,Thu:15:00-17:00

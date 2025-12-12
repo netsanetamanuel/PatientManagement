@@ -34,14 +34,13 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/Doctor.h" />
 		<Unit filename="include/Patient.h" />
+		<Unit filename="include/validation.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/Doctor.cpp" />
 		<Unit filename="src/Patient.cpp" />
-		<Unit filename="validation.cpp" />
-		<Unit filename="validation.h">
-			<Option compile="1" />
-			<Option link="1" />
-		</Unit>
+		<Unit filename="src/validation.cpp" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

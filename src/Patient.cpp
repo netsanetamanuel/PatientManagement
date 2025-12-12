@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <fstream>
 #include <sstream>
+#include <limits>
 #include "Patient.h"
 #include "validation.h"
 
@@ -22,10 +23,12 @@ void Patient::patient_dashboard(){
         <<"Choose [1-4]: ";
 
     cin>>choice;
+
+
     switch(choice){
     case 1:
         show_profile();
-        return;
+        break ;
     case 2:
         book_appointment();
         break;
@@ -51,15 +54,7 @@ void Patient::patient_dashboard(){
 
 }
 
-void edit_profile(){
 
-
-
-
-
-
-
-}
 
 void Patient::login(){
 
@@ -110,6 +105,7 @@ while(getline(file,line)){
         found = true;
         load_data(inputemail);
         patient_dashboard();
+        return;
 
     }
 }
@@ -199,7 +195,8 @@ cout<<"Enter Your Password : ";
         <<"2. Save Response \n"
         <<"3. Back to Menu \n"
         <<"4. Exit "<<endl;
-    cin>>choi;
+    // buffer problem
+
     if(choi==1){
        register_patient();
     } else if(choi==2){
@@ -274,16 +271,39 @@ file.close();
 void Patient::show_profile(){
 
     int choice;
-    cout<<"-------"<<toupper(fName)<<" Profile -------- "<<endl;
+    cout<<"-------"<<fName<<" Profile -------- "<<endl;
     cout<<"ID: "<<id<<endl;
-    cout<<"First Name: "<<toupper(fName)<<endl;
-    cout << "Last Name:  " << toupper(lName) << endl;
-    cout << "Email:  " << email << endl;
-    cout << "Phone:  " << phone << endl;
-    cout << "Date of Birth: " << year<<"-"<<month<<"-"<<day<< endl;
-    cout << "password: "<<password<<endl;
+    cout<<"First Name: "<<fName<<endl;
+    cout <<"Last Name:  " << lName << endl;
+    cout <<"Email:  " << email << endl;
+    cout <<"Phone:  " << phone << endl;
+    cout <<"Date of Birth: " << year<<"-"<<month<<"-"<<day<< endl;
+    cout <<"password: "<<password<<endl;
     cout<<"--------------------------------"<<endl;
+    cout<<"1. Edit Profile \n"
+        <<"2. Back to menu \n"
+        <<"3. Exit \n"
+        <<"Choose [1-3]: ";
+
+    cin>>choice;
+
+
+    switch(choice){
+    case 1:
+        cout<<"uc";
+        break;
+    case 2:
+        return;
+    case 3:
+        exit(0);
+    default:
+        cout<<"invalid choice "<<endl;
+        break;
+
+
     }
+
+
 
 
 

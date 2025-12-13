@@ -2,14 +2,21 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+<<<<<<< HEAD
 #include <limits>
 #include <iomanip>
+=======
+>>>>>>> parent of 781d64f (Merge pull request #1 from Kaleab-Ayenew/patient-array)
 #include "Doctor.h"
 
 using namespace std;
-
 void Doctor::doc_dashboard(){
 
+<<<<<<< HEAD
+void Doctor::doc_dashboard(){
+
+=======
+>>>>>>> parent of 781d64f (Merge pull request #1 from Kaleab-Ayenew/patient-array)
     int choice;
 
 cout<<"-------Doctor Dashboard -------- \n"
@@ -18,7 +25,11 @@ cout<<"-------Doctor Dashboard -------- \n"
     <<"3. Show Profile \n"
     <<"4. Appointment Management \n"
     <<"5. Logout \n"
+<<<<<<< HEAD
     <<"6. Exit \n"
+=======
+    <<" 6. Exit \n"
+>>>>>>> parent of 781d64f (Merge pull request #1 from Kaleab-Ayenew/patient-array)
     <<"Choose [1-6]: ";
 cin>>choice;
 
@@ -27,7 +38,11 @@ switch(choice){
         cout<<"UC";
         break;
     case 2:
+<<<<<<< HEAD
         show_patientrec();
+=======
+        cout<<"UC";
+>>>>>>> parent of 781d64f (Merge pull request #1 from Kaleab-Ayenew/patient-array)
         break;
     case 3:
         cout<<"UC";
@@ -44,11 +59,21 @@ switch(choice){
         cout<<"Invalid choice "<<endl;
         break;
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> parent of 781d64f (Merge pull request #1 from Kaleab-Ayenew/patient-array)
 
 }
 
 
+<<<<<<< HEAD
 }
+=======
+
+>>>>>>> parent of 781d64f (Merge pull request #1 from Kaleab-Ayenew/patient-array)
 
 
 void Doctor::login(){

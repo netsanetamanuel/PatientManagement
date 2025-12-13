@@ -39,7 +39,11 @@ do{
         cin>>msChoice;
         // input validation to clear the garbage value entered by user like string ,char ...
         cin.clear();
+<<<<<<< HEAD
 
+=======
+        cin.ignore();
+>>>>>>> parent of 781d64f (Merge pull request #1 from Kaleab-Ayenew/patient-array)
 
     switch(msChoice){
         case 1:

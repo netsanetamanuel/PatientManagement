@@ -125,10 +125,9 @@ void doctor_menu(){
     do{
         cout << "-------Doctor's Portal --------\n"
              << "1. Login \n"
-             << "2. View All Patients \n"
-             << "3. Back To Main Portal\n"
-             << "4. Exit \n"
-             << "Choose [1-4]: ";
+             << "2. Back To Main Portal\n"
+             << "3. Exit \n"
+             << "Choose [1-3]: ";
 
         cin >> choice;
         if(cin.fail()){
@@ -140,12 +139,9 @@ void doctor_menu(){
             newDoctor.login(patientArray, patientCount);
             break;
         case 2:
-            Patient::listAllPatients(patientArray, patientCount);
-            break;
-        case 3:
             master_menu();
             return;
-        case 4:
+        case 3:
             cout << "Exiting Program, Good bye" << endl;
             exit(0);
             break;
@@ -154,7 +150,7 @@ void doctor_menu(){
             break;
         }
 
-    }while(choice != 4);
+    }while(choice != 3);
 }
 
 

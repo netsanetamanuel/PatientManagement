@@ -36,10 +36,9 @@ do{
     cout << "----------Blaze Hospital ------------ \n"
          << "         1. Doctors Portal \n"
          << "         2. Patient Portal \n"
-         << "         3. View All Patients \n"
-         << "         4. Exit \n"
+         << "         3. Exit \n"
          << "---------------------------------------\n"
-         << " Choose [1 - 4]: ";
+         << " Choose [1 - 3]: ";
 
     cin >> msChoice;
     // input validation to clear the garbage value entered by user like string, char ...
@@ -58,9 +57,6 @@ do{
             patient_menu();
             break;
         case 3:
-            Patient::listAllPatients(patientArray, patientCount);
-            break;
-        case 4:
             cout << "Exiting Program, GoodBye" << endl;
             exit(0);
             break;
@@ -68,7 +64,7 @@ do{
             cout << "Invalid choice, Please enter correct Choice: ";
             break;
     }
-}while(msChoice != 4);
+}while(msChoice != 3);
 
 }
 
@@ -129,9 +125,10 @@ void doctor_menu(){
     do{
         cout << "-------Doctor's Portal --------\n"
              << "1. Login \n"
-             << "2. Back To Main Portal\n"
-             << "3. Exit \n"
-             << "Choose [1-3]: ";
+             << "2. View All Patients \n"
+             << "3. Back To Main Portal\n"
+             << "4. Exit \n"
+             << "Choose [1-4]: ";
 
         cin >> choice;
         if(cin.fail()){
@@ -143,9 +140,12 @@ void doctor_menu(){
             newDoctor.login(patientArray, patientCount);
             break;
         case 2:
+            Patient::listAllPatients(patientArray, patientCount);
+            break;
+        case 3:
             master_menu();
             return;
-        case 3:
+        case 4:
             cout << "Exiting Program, Good bye" << endl;
             exit(0);
             break;
@@ -154,7 +154,7 @@ void doctor_menu(){
             break;
         }
 
-    }while(choice != 3);
+    }while(choice != 4);
 }
 
 

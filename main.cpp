@@ -8,6 +8,9 @@
 
 using namespace std;
 
+// Global patient array and count
+Patient patientArray[MAX_PATIENTS];
+int patientCount = 0;
 
 void master_menu();
 
@@ -18,7 +21,9 @@ void patient_menu();
 
 int main()
 {
-
+    // Load existing patients from file into array at startup
+    patientCount = Patient::loadPatientsFromFile(patientArray, MAX_PATIENTS);
+    
     master_menu();
     return 0;
 
@@ -27,19 +32,23 @@ int main()
 void master_menu(){  // master menu for both patient and doctor portal
      int msChoice;
 
-
- cout<<"----------Blaze Hospital ------------ \n"
-        <<"         1. Doctors Portal \n"
-        <<"         2. Patient Portal \n"
-        <<"         3. Exit \n"
-        <<"---------------------------------------\n"
-        <<" Choose [1 - 3]: ";
-
 do{
-        cin>>msChoice;
-        // input validation to clear the garbage value entered by user like string ,char ...
+    cout << "----------Blaze Hospital ------------ \n"
+         << "         1. Doctors Portal \n"
+         << "         2. Patient Portal \n"
+         << "         3. View All Patients \n"
+         << "         4. Exit \n"
+         << "---------------------------------------\n"
+         << " Choose [1 - 4]: ";
+
+    cin >> msChoice;
+    // input validation to clear the garbage value entered by user like string, char ...
+    if(cin.fail()){
         cin.clear();
-        cin.ignore();
+        cin.ignore(100, '\n');
+        cout << "Invalid input. Please enter a number.\n";
+        continue;
+    }
 
     switch(msChoice){
         case 1:
@@ -49,16 +58,17 @@ do{
             patient_menu();
             break;
         case 3:
-            cout<<"Exiting Program , GoodBye"<<endl;
+            Patient::listAllPatients(patientArray, patientCount);
+            break;
+        case 4:
+            cout << "Exiting Program, GoodBye" << endl;
             exit(0);
             break;
-
         default:
-            cout<<"Invalid choice , Please enter correct Choice: ";
+            cout << "Invalid choice, Please enter correct Choice: ";
             break;
     }
-}while(msChoice!=3);
-
+}while(msChoice != 4);
 
 }
 
@@ -69,94 +79,82 @@ do{
 void patient_menu(){
     int pChoice;
 
-    Patient newPatient;
-
     do{
-              cout<<"----------Patient Portal ------------ \n"
-        <<"            1.Register               \n"
-        <<"            2.Login                  \n"
-        <<"            3.Back to Main Portal        \n"
-        <<"            4.Exit               \n"
-        <<"--------------------------------------\n"
-        <<"Choose [1-4]: ";
+        cout << "----------Patient Portal ------------ \n"
+             << "            1. Register               \n"
+             << "            2. Login                  \n"
+             << "            3. Back to Main Portal    \n"
+             << "            4. Exit                   \n"
+             << "--------------------------------------\n"
+             << "Choose [1-4]: ";
 
-        cin>>pChoice;
+        cin >> pChoice;
         if(cin.fail()){
             cin.clear();
             cin.ignore(100,'\n');
         }
+        
         switch(pChoice){
             case 1:
-                newPatient.register_patient();
-
+                // Register new patient and update count
+                patientCount = Patient::registerPatient(patientArray, patientCount, MAX_PATIENTS);
                 break;
             case 2:
-                newPatient.login();
-                return;
-
+                // Login existing patient from array
+                if(patientCount == 0){
+                    cout << "No patients registered yet. Please register first." << endl;
+                } else {
+                    Patient::loginPatient(patientArray, patientCount);
+                }
+                break;
             case 3:
                 master_menu();
-                break;
+                return;
             case 4:
-                cout<<"Exiting Program , Goodbye"<<endl;
+                cout << "Exiting Program, Goodbye" << endl;
                 exit(0);
                 break;
-
             default:
-                cout<<"Input valid choice"<<endl;
+                cout << "Input valid choice" << endl;
                 break;
-
         }
 
-    }while(pChoice!=4);
-
-
+    }while(pChoice != 4);
 }
 
 void doctor_menu(){
     int choice;
     Doctor newDoctor;
 
-
     do{
-        cout<<"-------Doctor's Portal --------\n"
-            <<"1. Login \n"
-            <<"2. Back To Main Portal\n "
-            <<"3. Exit \n"
-            <<"Choose [1-3]: ";
+        cout << "-------Doctor's Portal --------\n"
+             << "1. Login \n"
+             << "2. Back To Main Portal\n"
+             << "3. Exit \n"
+             << "Choose [1-3]: ";
 
-        cin>>choice;
+        cin >> choice;
         if(cin.fail()){
             cin.clear();
-            cin.ignore(100,'\n');
+            cin.ignore(100, '\n');
         }
         switch(choice){
         case 1:
-            newDoctor.login();
+            newDoctor.login(patientArray, patientCount);
             break;
         case 2:
             master_menu();
-            break;
+            return;
         case 3:
-            cout<<"Exiting Program , Good bye"<<endl;
+            cout << "Exiting Program, Good bye" << endl;
             exit(0);
             break;
         default:
-            cout<<"Invalid choice "<<endl;
+            cout << "Invalid choice " << endl;
             break;
-
-
-
         }
 
-    }while(choice!=3);
-
-
-
-
-
-
-
+    }while(choice != 3);
 }
 
 

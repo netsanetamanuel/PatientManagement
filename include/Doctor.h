@@ -1,6 +1,7 @@
 #ifndef DOCTOR_H
 #define DOCTOR_H
 #include <string>
+#include "Patient.h"
 
 using namespace std;
 
@@ -8,8 +9,8 @@ using namespace std;
 class Doctor
 {
     public:
-        void login();
-        void doc_dashboard();
+        void login(Patient patients[], int patientCount);
+        void doc_dashboard(Patient patients[], int patientCount);
         void load_data();
         void show_apt();
         void show_patientrec();

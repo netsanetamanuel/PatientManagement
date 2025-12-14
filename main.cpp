@@ -8,12 +8,9 @@
 
 using namespace std;
 
-
+// menu prototypes
 void master_menu();
-
 void doctor_menu();
-
-
 void patient_menu();
 
 int main()
@@ -28,11 +25,11 @@ void master_menu(){  // master menu for both patient and doctor portal
      int msChoice;
 
 
- cout<<"----------Blaze Hospital ------------ \n"
-        <<"         1. Doctors Portal \n"
-        <<"         2. Patient Portal \n"
-        <<"         3. Exit \n"
-        <<"---------------------------------------\n"
+    cout<<"======== Blaze Hospital ===============\n"
+        <<"         1. Doctors Portal              \n"
+        <<"         2. Patient Portal              \n"
+        <<"         3. Exit                        \n"
+        <<"=======================================\n"
         <<" Choose [1 - 3]: ";
 
 do{
@@ -43,17 +40,21 @@ do{
 
     switch(msChoice){
         case 1:
+            cin.ignore();
             doctor_menu();
             break;
         case 2:
+            cin.ignore();
             patient_menu();
             break;
         case 3:
+            cin.ignore();
             cout<<"Exiting Program , GoodBye"<<endl;
             exit(0);
             break;
 
         default:
+            cin.ignore();
             cout<<"Invalid choice , Please enter correct Choice: ";
             break;
     }
@@ -72,25 +73,24 @@ void patient_menu(){
     Patient newPatient;
 
     do{
-              cout<<"----------Patient Portal ------------ \n"
+    cout<<"=========== Patient Portal ============\n"
         <<"            1.Register               \n"
         <<"            2.Login                  \n"
-        <<"            3.Back to Main Portal        \n"
+        <<"            3.Back to Main Portal     \n"
         <<"            4.Exit               \n"
-        <<"--------------------------------------\n"
+        <<"======================================\n"
         <<"Choose [1-4]: ";
 
         cin>>pChoice;
-        if(cin.fail()){
-            cin.clear();
-            cin.ignore(100,'\n');
-        }
+
         switch(pChoice){
             case 1:
+                cin.ignore();
                 newPatient.register_patient();
 
                 break;
             case 2:
+                cin.ignore();
                 newPatient.login();
                 return;
 
@@ -119,10 +119,11 @@ void doctor_menu(){
 
 
     do{
-        cout<<"-------Doctor's Portal --------\n"
-            <<"1. Login \n"
-            <<"2. Back To Main Portal\n "
-            <<"3. Exit \n"
+        cout<<"======== Doctor's Portal =======\n"
+            <<"     1. Login \n"
+            <<"     2. Back To Main Portal  \n"
+            <<"     3. Exit \n"
+            <<"================================\n"
             <<"Choose [1-3]: ";
 
         cin>>choice;

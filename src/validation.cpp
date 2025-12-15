@@ -1,8 +1,40 @@
+#include <iostream>
 #include <algorithm>
 #include <string>
+#include <iomanip>
+#include <fstream>
+#include <sstream>
 #include "validation.h"
 
 using namespace std;
+
+bool isPatient_registered(string& f_name, string& l_name){
+ifstream data("patient_rec.txt");
+
+if(!data.is_open()){
+
+    cout<<"can't open file"<<endl;
+}
+
+string line;
+
+while(getline(data,line)){
+
+    stringstream ss(line);
+    string stored_fname , stored_lname;
+    string full_name = stored_fname + "|"+stored_lname;
+
+    while(getline(ss,full_name,'|')){
+
+    if(line.find(full_name) !=string::npos){
+        return true;
+    }
+    }
+}
+
+return false;
+}
+
 
 bool isValidpass(string& pass){
 
@@ -52,6 +84,7 @@ bool isValiddob(int& years ,int& months ,int& days){
 
     if (months == 2) {
         if ((years % 4 == 0 && years % 100 != 0) || (years % 400 == 0)) {
+
           if (days > 29)
             return false;
         } else {

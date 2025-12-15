@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <fstream>
 #include <sstream>
+#include <cctype>
 #include <iomanip>
 #include <limits>
 #include "Patient.h"
@@ -12,7 +13,9 @@
 using namespace std;
 
 void Patient::patient_dashboard(){
-    int choice;
+     int choice;
+    do{
+
 
     cout<<"=========== PATIENT DASHBOARD ==========\n"
         <<"         1. My Profile \n"
@@ -24,8 +27,11 @@ void Patient::patient_dashboard(){
         <<"========================================\n"
         <<"Choose [1-4]: ";
 
+
     cin>>choice;
+    cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
 
 
     switch(choice){
@@ -36,7 +42,7 @@ void Patient::patient_dashboard(){
         book_appointment();
         break;
     case 3:
-        cout<<"uc";
+        cout<<"Show Appointments: Under construction";
         break;
     case 4:
         cout<<"uc";
@@ -53,7 +59,7 @@ void Patient::patient_dashboard(){
 
 
     }
-
+    }while(choice!=6);
 
 }
 
@@ -69,9 +75,11 @@ void Patient::login(){
     cout<<"========== Login ==========\n";
  do{
     cout<<"Email: ";
-    cin>>inputemail;
+    getline(cin,inputemail);
     cout<<"Password: ";
-    cin>>inputpassword;
+    getline(cin,inputpassword);
+
+
 
     // open patient file in input mode
     ifstream file("patient_rec.txt",ios::in);
@@ -136,41 +144,49 @@ if(!found){
 
 void Patient::register_patient(){
     // patient profile registery function
+    ifstream pat_data("patient_rec.txt",ios::in);
+    string line;
+
+
+
     string conf_password;
-
-
     int choi;
     cout<<"=============== Patient Registration ===============\n"
         <<"Enter Details: ";
     cout<<endl;
 
     cout<<"Enter First Name : ";
-    cin>>fName;
+    getline(cin,fName);
     cout<<"Enter Last Name : ";
-    cin>>lName;
-    cout<<"Enter Your Email : ";
+    getline(cin,lName);
 
+    if(isPatient_registered(fName,lName)){
+        cout<<"Patient Already Registerd!";
+        cout<<endl;
+        return;
+
+    }
     // calling form validation helper functions
+
+    cout<<"Enter Your Email : ";
     do{
-        cin>>email;
+        getline(cin,email);
     if(!isValidemail(email))
         cout<<"Enter Valid Email: ";
     }while(!isValidemail(email));
 
 cout<<"Enter Your Phone Number: ";
     do{
-        cin>>phone;
+        getline(cin,phone);
+
         if(!isValidphone(phone)){
             cout<<"Enter Valid Phone: ";
         }
 
     }while(!isValidphone(phone));
 
-cout<<"Enter Date of BirthDay: ";
-
-
+   cout<<"Enter Date of BirthDay: ";
     do {
-
         cout<<"Enter Year: ";cin>>year;
         cout<<"Enter Month: ";cin>>month;
         cout<<"Enter Day: ";cin>>day;
@@ -178,57 +194,75 @@ cout<<"Enter Date of BirthDay: ";
         if(!isValiddob(year,month,day)){
             cout<<"Enter valid birth day: ";
     }
-}while(!isValiddob(year,month,day));
+ }while(!isValiddob(year,month,day));
 
 
 
 
 cout<<"Enter Your Password : ";
-
+cin.ignore(numeric_limits<streamsize>::max(), '\n');
     do{
-    cin>>password;
+    getline(cin,password);
     if(!isValidpass(password)){
-        cout<<"Enter valid email: ";
+        cout<<"Enter valid Password: ";
     }
     }while(!isValidpass(password));
 
     do {
         cout << "Confirm Your password : ";
-        cin >> conf_password;
 
+        getline(cin,conf_password);
         if(conf_password != password) {
             cout << "Passwords don't match! Try again." << endl;
         }
 
     }while(conf_password != password);
 
+
     cout<<endl;
-    cout<<"1. Edit Response \n"
+
+    cout<<"1. Edit Response : under construction\n"
         <<"2. Save Response \n"
         <<"3. Back to Menu \n"
-        <<"4. Exit "<<endl;
-    // buffer problem
+        <<"4. Exit \n";
+    cout<<"choose [1-4]: ";
 
-    if(choi==1){
-       register_patient();
+    do{
+    cin>>choi;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(),'\n');
 
-    } else if(choi==2){
+    switch(choi){
+    case 1:
+        cout<<"UC"<<endl;
+        break;
+    case 2:
         ++pat_countr;
         id = "PA0" + to_string(pat_countr);
         save_patientrec();
         cout<<"Registration Succesfull"<<endl;
-
-    } else if(choi ==3){
+        return;
+    case 3:
+        return;
+    case 4:
         exit(0);
-    }
+    default:
+        cout<<"invalid input"<<endl;
+        break;
 
+
+    }
+    }while(choi!=4);
+
+    // buffer problem
 
 
 }
 
 void Patient::save_patientrec(){
     // save patient response to file using | as delimiter to separate the files
-    //
+    // ios::app , append text
+
     ofstream data("patient_rec.txt",ios::app);
     data <<id<<"|"
          << fName << "|"
@@ -300,20 +334,23 @@ void Patient::show_profile(){
     cout <<"password: "<<password<<endl;
     cout<<"====================================="<<endl;
     cout<<endl;
+
     cout<<"1. Edit Profile \n"
         <<"2. Back to menu \n"
         <<"3. Exit \n"
         <<"Choose [1-3]: ";
 
     do{
-    cin.ignore();
+
     cin>>choice;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
     switch(choice){
     case 1:
        cout<<"UC"<<endl;
         break;
     case 2:
-        cin.ignore();
         return;
     case 3:
         exit(0);
@@ -336,6 +373,7 @@ void Patient::book_appointment() {
     // pick their doctor
 
     ifstream inputFile("doctors.txt");
+
     if (!inputFile.is_open()) {
         cout << "Error opening file!" << endl;
         return;
@@ -410,8 +448,13 @@ void Patient::book_appointment() {
 
     // let user
     string doc_id;
+
+
     cout << "\nEnter Doctor ID to book appointment: ";
     cin >> doc_id;
+    for(auto& id: doc_id){
+       id= toupper(id);
+    }
 
     // Find the selected doctor
     int selectedIndex = -1;
@@ -473,7 +516,22 @@ void Patient::book_appointment() {
         if(doctorBooked) {
             cout << "Error: This doctor already has an appointment booked!" << endl;
             cout << "Doctor " << selectedDoctorName << " is not available." << endl;
-            return;
+
+           int retry_choice;
+                cout<<"1. Back to Menu \n"
+                   <<"2. Exit \n"<<endl;
+            cout<<"Choose [1-2]: "<<endl;
+            do{
+            cin>>retry_choice;
+
+            if(retry_choice==1){
+                return;
+            } else if(retry_choice==2){
+                exit(0);
+            }
+
+            }while(retry_choice!=3);
+
         }
     }
 
@@ -487,8 +545,7 @@ void Patient::book_appointment() {
 
     string patientName = Patient::fName;
 
-    // Format: PatientID|PatientName|DoctorID|DoctorName|Slot|Status
-    // Using doctor's slot time as the appointment time
+    // store the patient and doctor to appointment.txt
     outFile << patientId << "|"
             << patientName << "|"
             << doc_id << "|"
@@ -502,14 +559,18 @@ void Patient::book_appointment() {
     cout << "Doctor: " << selectedDoctorName << endl;
     cout << "Appointment Time: " << selectedDoctorSlot << endl;
     cout << "Status: Scheduled" << endl;
-    cout<<"-----------------------------";
+    cout<<"=====================================";
     cout<<endl;
 
     int choice;
+
     do{
     cout<<"1. Back to Menu \n"
         <<"2 . Exit \n";
     cin>>choice;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
     switch(choice){
     case 1:
         return;

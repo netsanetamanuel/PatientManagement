@@ -21,17 +21,19 @@ cout<<"-------Doctor Dashboard -------- \n"
     <<"6. Exit \n"
     <<"Choose [1-6]: ";
 cin>>choice;
+cin.clear();
+cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 switch(choice){
     case 1:
-        cout<<"UC";
+        cout<<"Show Appointment: under construction";
         break;
     case 2:
         show_patientrec();
         break;
     case 3:
-        cout<<"UC";
-        break;
+        show_profile();
+        return;
     case 4:
         cout<<"UC";
         break;
@@ -91,6 +93,7 @@ void Doctor::login(){
             }
             if(emailf == input_email && pwdf == input_pwd){
                 found = true;
+                load_data(input_email);
                 doc_dashboard();
             }
         }
@@ -103,21 +106,27 @@ void Doctor::login(){
 
 }
 
+
+
 void Doctor::show_patientrec(){
 
     int choice;
 
-cout<<"--------- Show Patient Record ---------\n"
+cout<<"======== Show Patient Record ==========\n"
     <<"1. Search By Id \n"
     <<"2. Search By Name \n"
     <<"3. Show All Patients \n"
     <<"4. Back to Menu \n"
     <<"5. Exit \n"
-    <<"---------------------------------------\n"
+    <<"========================================\n"
     <<"Choose [1-5]: "<<endl;
+cout<<endl;
 
     do{
     cin>>choice;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
     switch(choice){
     case 1:
         cout<<"uc";
@@ -141,6 +150,9 @@ cout<<"--------- Show Patient Record ---------\n"
 }
 
 void Doctor::showallrec() {
+
+
+    int choice;
     cout << "\n======= ALL PATIENT RECORDS =======\n\n";
 
     // First, count the number of patients
@@ -153,7 +165,7 @@ void Doctor::showallrec() {
     int patientCount = 0;
     string line;
 
-    // Count lines in file
+    // Count lines in files in the text
     while (getline(countFile, line)) {
         if (!line.empty()) {
             patientCount++;
@@ -166,13 +178,15 @@ void Doctor::showallrec() {
         return;
     }
 
-    // Create dynamic arrays to store patient data
-    string* ids = new string[patientCount];
-    string* fNames = new string[patientCount];
-    string* lNames = new string[patientCount];
-    string* emails = new string[patientCount];
-    string* phones = new string[patientCount];
-    string* dobs = new string[patientCount];
+    // Create  arrays to store patient data
+
+
+    string ids[patientCount];
+    string fNames [patientCount];
+    string lNames [patientCount];
+    string emails [patientCount];
+    string phones [patientCount];
+    string dobs [patientCount];
 
     // Read and store all patient data
     ifstream dataFile("patient_rec.txt");
@@ -181,7 +195,7 @@ void Doctor::showallrec() {
     while (getline(dataFile, line) && index < patientCount) {
         if (line.empty()) continue;
 
-        stringstream ss(line);
+        stringstream ss(line); // parse the line to string
 
         // Read each field separated by '|'
         getline(ss, ids[index], '|');
@@ -190,21 +204,24 @@ void Doctor::showallrec() {
         getline(ss, emails[index], '|');
         getline(ss, phones[index], '|');
         getline(ss, dobs[index], '|');
-        // Password is the last field, but we won't display it for security
+        // Password is the last field, but we won't display it for security reason since it is patient
+        // cofindential data
 
         index++;
     }
     dataFile.close();
 
     // Display all patient records in a formatted table
-    cout << "------------------------------------------------------------------------------------------------\n";
+   cout << string(220, '=')<<endl;
     cout << left << setw(8) << "ID"
          << setw(15) << "First Name"
          << setw(15) << "Last Name"
          << setw(25) << "Email"
          << setw(15) << "Phone"
          << setw(15) << "Date of Birth" << endl;
-    cout << "------------------------------------------------------------------------------------------------\n";
+    cout << string(220, '=')<<endl;
+
+
 
     for (int i = 0; i < patientCount; i++) {
         cout << left << setw(8) << ids[i]
@@ -215,29 +232,87 @@ void Doctor::showallrec() {
              << setw(15) << dobs[i] << endl;
     }
 
-    cout << "------------------------------------------------------------------------------------------------\n";
+    cout << string(220, '=')<<endl;
     cout << "Total Patients: " << patientCount << endl << endl;
 
-    // Free the dynamically allocated memory
-    delete[] ids;
-    delete[] fNames;
-    delete[] lNames;
-    delete[] emails;
-    delete[] phones;
-    delete[] dobs;
+     do{
+        cout<<"1. Back to Menu \n"
+            <<"2. Exit \n"
+            <<"Choose [1-2]: "<<endl;
+        cin>> choice;
+          cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-    // Option to continue
-    cout << "Press Enter to continue...";
-    cin.ignore();
-    cin.get();
+        switch(choice){
+        case 1:
+             cin.ignore();
+            return;
+        case 2:
+            exit(0);
+            break;
+        default:
+            cout<<"invalid input"<<endl;
+
+        }
+    }while(choice!=2);
+
+
+
 }
 
 
+void Doctor::load_data(const string& doc_email){
+
+ifstream data("doctors.txt");
+if(!data.is_open()){
+    cout<<"can't open file"<<endl;
+    return;
+}
+
+string line;
+while(getline(data,line)){
+    stringstream ss(line);
+    string current_email;
 
 
+    string str_room = to_string(room);
+
+        getline(ss, id, '|');
+        getline(ss, fname, '|');
+        getline(ss, lname, '|');
+        getline(ss,speciality,'|');
+        getline(ss, current_email, '|');
+
+     if(current_email==doc_email){
+
+        getline(ss, phone, '|');
+        getline(ss, password, '|');
+        getline(ss, exprience, '|');
+        getline(ss, str_room, '|');
+        getline(ss,slot,'|');
+
+        email = doc_email;
+        break;
+     }
 
 
+}
+data.close();
+}
 
+void Doctor::show_profile(){
+
+    cout<<"========= Dr"<<fname<<" =============="<<endl;
+        cout<<"ID: "<<id<<endl;
+        cout<<"Name: "<<fname + " " +lname<<endl;
+        cout<<"Email: "<<email<<endl;
+        cout<<"Phone: "<<phone<<endl;
+        cout<<"Speciality: "<<speciality<<endl;
+        cout<<"Exprience: "<<exprience<<endl;
+        cout<<"Duty Day: "<<slot<<endl;
+        cout<<"Room: "<<room<<endl;
+return;
+}
 
 
 

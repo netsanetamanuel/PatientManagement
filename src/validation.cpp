@@ -11,28 +11,36 @@ using namespace std;
 bool isPatient_registered(string& f_name, string& l_name){
 ifstream data("patient_rec.txt");
 
+
 if(!data.is_open()){
 
     cout<<"can't open file"<<endl;
 }
 
 string line;
+int countr=0;
+string fieldFname , fieldLname;
 
 while(getline(data,line)){
-
     stringstream ss(line);
-    string stored_fname , stored_lname;
-    string full_name = stored_fname + "|"+stored_lname;
-
-    while(getline(ss,full_name,'|')){
-
-    if(line.find(full_name) !=string::npos){
-        return true;
+    string field;
+    int field_ctr =0;
+    while(getline(ss,field,'|')){
+        if(field_ctr==1){
+            fieldFname=field;
+        }
+         if(field_ctr==2){
+            fieldLname=field;
+        }
+        if(fieldFname==f_name&&fieldLname==l_name){
+            return true;
+        }
+        field_ctr++;
     }
-    }
+    countr++;
 }
-
 return false;
+
 }
 
 

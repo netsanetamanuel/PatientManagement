@@ -5,28 +5,29 @@
 #include <limits>
 #include <iomanip>
 #include "Doctor.h"
+#include "handle_rec.h"
 
 using namespace std;
 
 void Doctor::doc_dashboard(){
 
     int choice;
-
-cout<<"-------Doctor Dashboard -------- \n"
+    cout<<"-------Doctor Dashboard -------- \n"
     <<"1. Show Appointments \n"
     <<"2. Patient Records \n"
     <<"3. Show Profile \n"
-    <<"4. Appointment Management \n"
-    <<"5. Logout \n"
-    <<"6. Exit \n"
+    <<"4. Logout \n"
+    <<"5. Exit \n"
     <<"Choose [1-6]: ";
+do{
+
 cin>>choice;
 cin.clear();
 cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 switch(choice){
     case 1:
-        cout<<"Show Appointment: under construction";
+        show_apt();
         break;
     case 2:
         show_patientrec();
@@ -35,12 +36,9 @@ switch(choice){
         show_profile();
         return;
     case 4:
-        cout<<"UC";
-        break;
+       return;
     case 5:
-        return;
-    case 6:
-        cout<<"Closing Program , Goodbye"<<endl;
+         cout<<"Closing Program , Goodbye"<<endl;
         exit(0);
     default:
         cout<<"Invalid choice "<<endl;
@@ -50,9 +48,9 @@ switch(choice){
 }
 
 
+}while(choice!=5);
+
 }
-
-
 void Doctor::login(){
     string input_email,input_pwd;
     bool found =false;
@@ -111,45 +109,84 @@ void Doctor::login(){
 void Doctor::show_patientrec(){
 
     int choice;
+    const int ROW=500;
+    const int COL=10;
 
 cout<<"======== Show Patient Record ==========\n"
     <<"1. Search By Id \n"
     <<"2. Search By Name \n"
-    <<"3. Show All Patients \n"
-    <<"4. Back to Menu \n"
-    <<"5. Exit \n"
+    <<"3. Sort By Name (Descending or Ascending)\n"
+    <<"4. Sort By ID(Descening or Ascending) \n"
+    <<"5. Show All Patients \n"
+    <<"6. Delete records \n"
+    <<"7. Back to Menu \n"
+    <<"8. Exit \n"
     <<"========================================\n"
     <<"Choose [1-5]: "<<endl;
-cout<<endl;
+    cout<<endl;
+
+    // get col and row
+    fstream data("patient_rec.txt");
+
+    string pa_array[ROW][COL];
+    string line;
+    int row=0;
+
+    while(getline(data,line)&&row<ROW){
+        stringstream ss(line);
+        string field;
+        int col=0;
+        while(getline(ss,field,'|') && col<COL){
+            pa_array[row][col]=field;
+            col++;
+        }
+        row++;
+    }
+    data.close();
+    int actual_col=7;
+
+
 
     do{
     cin>>choice;
-    cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
 
     switch(choice){
     case 1:
-        cout<<"uc";
+        search_byid(pa_array,row,actual_col);
         break;
     case 2:
-        cout<<"uc";
+        search_byname(pa_array,row,actual_col);
         break;
     case 3:
-        showallrec();
+        sort_byname(pa_array,row,actual_col);
         break;
+    case 4:
+        sort_byid(pa_array,row,actual_col);
+        break;
+    case 5:
+        view_allrec(pa_array,row,actual_col);
+        break;
+    case 6:
+        del_rec(pa_array,row,actual_col);
+        break;
+    case 7:
+        return;
     default:
         cout<<"input valid input"<<endl;
         break;
 
     }
 
-    }while(choice!=5);
+    }while(choice!=8);
 
 
 
 }
 
 void Doctor::showallrec() {
+
+
 
 
     int choice;
@@ -287,6 +324,7 @@ while(getline(data,line)){
 
         getline(ss, phone, '|');
         getline(ss, password, '|');
+
         getline(ss, exprience, '|');
         getline(ss, str_room, '|');
         getline(ss,slot,'|');
@@ -312,8 +350,108 @@ void Doctor::show_profile(){
         cout<<"Duty Day: "<<slot<<endl;
         cout<<"Room: "<<room<<endl;
 return;
+
 }
 
+void Doctor::show_apt(){
 
+ifstream data("appointment.txt");
+ofstream temp("temp.txt");
+ofstream med("medical.txt");
+
+    if (!data.is_open()) {
+        cout << "Unable to open appointment file.\n";
+        return;
+    }
+
+    string line;
+    bool found = false;
+    int opt;
+
+    while (getline(data, line)) {
+        stringstream ss(line);
+
+        string pat_id, pat_name, doc_id, doc_name, day, stat;
+        string advice,prescription,diagnosis;
+
+        getline(ss, pat_id, '|');
+        getline(ss, pat_name, '|');
+        getline(ss, doc_id, '|');
+        getline(ss, doc_name, '|');
+        getline(ss, day, '|');
+        getline(ss, stat, '|');
+
+        // If this appointment belongs to the logged-in doctor
+        if (id == doc_id && stat == "Scheduled") {
+
+            cout << "\n==============================\n";
+            cout << "      APPOINTMENT FOUND\n";
+            cout << "==============================\n";
+            cout << "Patient ID   : " << pat_id << endl;
+            cout << "Patient Name : " << pat_name << endl;
+            cout << "Doctor Name  : " << doc_name << endl;
+            cout << "Schedule     : " << day << endl;
+            cout << "Status       : " << stat << endl;
+
+            found = true;
+
+            cout << "\nConfirm Appointment?\n";
+            cout << "[1] Accept\n";
+            cout << "[0] Cancel\n";
+            cout << "> ";
+            cin >> opt;
+
+            if (opt == 0) {
+                stat = "Canceled";
+                cout << "\nAppointment CANCELED.\n";
+            }
+            else if (opt == 1) {
+                stat = "Confirmed";
+                cin.ignore();
+
+                cout << "Enter Diagnosis     : ";
+                getline(cin, diagnosis);
+
+                cout << "Enter Prescription : ";
+                getline(cin, prescription);
+
+                cout << "Enter Advice        : ";
+                getline(cin, advice);
+                cout << "\nAppointment CONFIRMED.\n";
+
+            }
+             med << pat_id << "|"
+                     << pat_name << "|"
+                     << doc_id << "|"
+                     << doc_name << "|"
+                     << diagnosis<<"|"
+                     << prescription<<"|"
+                     << advice <<"|"
+                     << day<<endl;
+
+        }
+
+        // Write (updated or unchanged) record
+        temp << pat_id << "|"
+             << pat_name << "|"
+             << doc_id << "|"
+             << doc_name << "|"
+             << day << "|"
+             << stat <<endl;
+    }
+
+    data.close();
+    temp.close();
+
+    remove("appointment.txt");
+    rename("temp.txt", "appointment.txt");
+
+    if (!found) {
+        cout << "\nNo appointments found.\n";
+    }
+
+    cout << "\nReturning to Doctor Dashboard...\n";
+    doc_dashboard();
+}
 
 

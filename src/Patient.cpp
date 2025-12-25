@@ -14,8 +14,6 @@ using namespace std;
 
 void Patient::patient_dashboard(){
      int choice;
-    do{
-
 
     cout<<"=========== PATIENT DASHBOARD ==========\n"
         <<"         1. My Profile \n"
@@ -25,14 +23,11 @@ void Patient::patient_dashboard(){
         <<"         5. Logout \n"
         <<"         6. Exit \n"
         <<"========================================\n"
-        <<"Choose [1-4]: ";
-
-
+        <<"Choose [1-6]: ";
+    do{
     cin>>choice;
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-
 
     switch(choice){
     case 1:
@@ -42,22 +37,18 @@ void Patient::patient_dashboard(){
         book_appointment();
         break;
     case 3:
-        cout<<"Show Appointments: Under construction";
+       show_appointment();
         break;
     case 4:
-        cout<<"uc";
+        show_medrecords();
         break;
     case 5:
         return;
-
     case 6:
         exit(0);
     default:
         cout<<"input valid value"<<endl;
         break;
-
-
-
     }
     }while(choice!=6);
 
@@ -164,7 +155,6 @@ void Patient::register_patient(){
         cout<<"Patient Already Registerd!";
         cout<<endl;
         return;
-
     }
     // calling form validation helper functions
 
@@ -217,11 +207,12 @@ cin.ignore(numeric_limits<streamsize>::max(), '\n');
         }
 
     }while(conf_password != password);
-
+      cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout<<endl;
 
-    cout<<"1. Edit Response : under construction\n"
+    cout<<"1. Edit Response \n"
         <<"2. Save Response \n"
         <<"3. Back to Menu \n"
         <<"4. Exit \n";
@@ -234,7 +225,7 @@ cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     switch(choi){
     case 1:
-        cout<<"UC"<<endl;
+        register_patient();
         break;
     case 2:
         ++pat_countr;
@@ -280,22 +271,22 @@ void Patient::load_data(const string& pat_email){
 
     // function that parse patient data to object of the class
     // for future use
-
-
     ifstream file("patient_rec.txt");
 
     if(!file.is_open()){
         cout<<"Cannot open file"<<endl;
 
     }
-
 string line;
-
 while(getline(file,line)){
+
     stringstream ss(line);
     string currentemail,dob;
-    // display current patient recored
 
+
+
+
+    // display current patient recored
 
     getline(ss, id, '|');
     getline(ss, fName, '|');
@@ -306,6 +297,14 @@ while(getline(file,line)){
 
     getline(ss, phone, '|');
     getline(ss, dob, '|');
+
+
+
+    stringstream dateStream(dob);
+    getline(dateStream, year, '-');
+    getline(dateStream, month, '-');
+    getline(dateStream, day, '-');
+
     getline(ss, password, '|');
 
      email = pat_email;
@@ -313,6 +312,8 @@ while(getline(file,line)){
     }
 }
 file.close();
+
+
 }
 
 
@@ -348,7 +349,7 @@ void Patient::show_profile(){
 
     switch(choice){
     case 1:
-       cout<<"UC"<<endl;
+        cout<<"UC"<<endl;
         break;
     case 2:
         return;
@@ -381,6 +382,7 @@ void Patient::book_appointment() {
 
     const int MAX_DOCTORS = 100;
     const int MAX_APPOINTMENTS = 200;
+
     // now using array fields to store doctors data and display
 
     string line;
@@ -397,7 +399,7 @@ void Patient::book_appointment() {
 
     int count = 0; // count no of line
 
-    while (getline(inputFile, line) && count < MAX_DOCTORS) {
+    while (getline(inputFile, line) && count < MAX_DOCTORS) {  //
         stringstream ss(line);
         string token;
         int fieldCount = 0; // count no fields
@@ -449,7 +451,6 @@ void Patient::book_appointment() {
     // let user
     string doc_id;
 
-
     cout << "\nEnter Doctor ID to book appointment: ";
     cin >> doc_id;
     for(auto& id: doc_id){
@@ -458,8 +459,8 @@ void Patient::book_appointment() {
 
     // Find the selected doctor
     int selectedIndex = -1;
-    string selectedDoctorName = "";
-    string selectedDoctorSlot = "";
+    string selectedDoctorName ;
+    string selectedDoctorSlot ;
 
     for(int i = 0; i < count; i++) {
 
@@ -478,6 +479,7 @@ void Patient::book_appointment() {
 
     // Check if doctor already has an appointment
     ifstream appointmentFile("appointment.txt");
+
     string patientId = Patient::id;
 
     if(appointmentFile.is_open()) {
@@ -523,12 +525,16 @@ void Patient::book_appointment() {
             cout<<"Choose [1-2]: "<<endl;
             do{
             cin>>retry_choice;
+                switch(retry_choice){
+                case 1:
+                    return;
+                case 2:
+                    exit(0);
+                default:
+                    cout<<"invalid input";
+                    break;
+                }
 
-            if(retry_choice==1){
-                return;
-            } else if(retry_choice==2){
-                exit(0);
-            }
 
             }while(retry_choice!=3);
 
@@ -544,6 +550,7 @@ void Patient::book_appointment() {
     }
 
     string patientName = Patient::fName;
+    string status;
 
     // store the patient and doctor to appointment.txt
     outFile << patientId << "|"
@@ -551,7 +558,7 @@ void Patient::book_appointment() {
             << doc_id << "|"
             << selectedDoctorName << "|"
             << selectedDoctorSlot << "|"  // Doctor's slot becomes appointment time
-            << "Scheduled" << endl;
+            << status<<"Scheduled" << endl;
 
     outFile.close();
 
@@ -566,10 +573,9 @@ void Patient::book_appointment() {
 
     do{
     cout<<"1. Back to Menu \n"
-        <<"2 . Exit \n";
+        <<"2. Exit \n";
     cin>>choice;
-    cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
 
     switch(choice){
     case 1:
@@ -587,7 +593,77 @@ void Patient::book_appointment() {
 
 }
 
+void Patient::show_medrecords(){
+
+ifstream med_data("medical.txt");
+string line;
+
+while(getline(med_data,line)){
+    stringstream ss(line);
+    string pat_id,pat_name,doc_id,doc_name,diagnosis,prescription,advice,apt;
+
+    getline(ss,pat_id,'|');
+    getline(ss,pat_name,'|');
+    getline(ss,doc_id,'|');
+    getline(ss,doc_name,'|');
+    getline(ss,diagnosis,'|');
+    getline(ss,prescription,'|');
+    getline(ss,advice,'|');
+    getline(ss,apt,'|');
+
+    if(id==pat_id){
+            cout<<"your medical record"<<endl;
+        cout<<pat_id
+            <<pat_name
+            <<doc_id
+            <<doc_name
+            <<diagnosis
+            <<prescription
+            <<advice
+            <<apt<<endl;
+    }
 
 
+
+}
+
+med_data.close();
+
+
+
+}
+
+void Patient::show_appointment(){
+
+// open file
+
+ifstream apt("appointment.txt");
+
+string line;
+
+while(getline(apt,line)){
+    stringstream ss(line);
+    string pat_id,pat_name,doc_id,doc_name,day,stat;
+
+    getline(ss,pat_id,'|');
+    getline(ss,pat_name,'|');
+    getline(ss,doc_id,'|');
+    getline(ss,doc_name,'|');
+    getline(ss,day,'|');
+    getline(ss,stat,'|');
+    if(id==pat_id){
+        cout<<"Your Appointment"<<endl;
+        cout<<pat_id
+            <<pat_name
+            <<doc_id
+            <<doc_name
+            <<day
+            <<stat;
+    }
+}
+apt.close();
+
+
+}
 
 

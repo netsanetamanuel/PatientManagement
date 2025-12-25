@@ -76,8 +76,12 @@ bool isValidphone(string& phone_num){
 
 }
 
-bool isValiddob(int& years ,int& months ,int& days){
+bool isValiddob(string& year ,string& month ,string& day){
         // year validation needed
+        int months = stoi(month);
+         int years = stoi(year);
+          int days = stoi(day);
+
     if (months < 1 || months > 12)
         return false;
 

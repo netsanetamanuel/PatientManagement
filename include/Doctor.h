@@ -10,7 +10,7 @@ class Doctor
     public:
         void login();
         void doc_dashboard();
-        void load_data();
+        void load_data(const string& );
 
         void showallrec();
         void search_id();
@@ -24,8 +24,8 @@ class Doctor
 
 
     private:
-        string fname,lname,id,speciality,email,phone,password,slot;
-        int exprience, room;
+        string fname,lname,id,speciality,email,phone,password,slot,exprience;
+        int room;
 
 
 };

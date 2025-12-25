@@ -8,6 +8,7 @@ using namespace std;
 
 class Patient
 {
+    // class methods
     public:
         void register_patient();
         void login();
@@ -17,15 +18,12 @@ class Patient
         void book_appointment();
         void show_appointment();
         void show_medrecords();
-
-
-
         void save_patientrec();
 
     private:
-
+        // patient data members
          string fName ,lName, password,email,phone,id;
-         int year , month , day;
+         string year , month , day;
          int pat_countr=0;
 
 

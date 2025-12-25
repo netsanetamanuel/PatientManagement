@@ -1,8 +1,10 @@
 #include <iostream>
 #include <fstream>
-#include <cstdlib> // for exit
+#include <cstdlib> // for exit()
+#include <limits>  // numeric limits
 #include "Patient.h"
 #include "Doctor.h"
+#include "handle_rec.h"
 #include "validation.h"
 
 
@@ -36,25 +38,24 @@ do{
         cin>>msChoice;
         // input validation to clear the garbage value entered by user like string ,char ...
         cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');
 
 
     switch(msChoice){
         case 1:
-            cin.ignore();
+
             doctor_menu();
             break;
         case 2:
-            cin.ignore();
+
             patient_menu();
             break;
         case 3:
-            cin.ignore();
+
             cout<<"Exiting Program , GoodBye"<<endl;
             exit(0);
             break;
-
         default:
-            cin.ignore();
             cout<<"Invalid choice , Please enter correct Choice: ";
             break;
     }
@@ -82,15 +83,13 @@ void patient_menu(){
         <<"Choose [1-4]: ";
 
         cin>>pChoice;
-
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');
         switch(pChoice){
             case 1:
-                cin.ignore();
                 newPatient.register_patient();
-
                 break;
             case 2:
-                cin.ignore();
                 newPatient.login();
                 return;
 
@@ -127,10 +126,10 @@ void doctor_menu(){
             <<"Choose [1-3]: ";
 
         cin>>choice;
-        if(cin.fail()){
-            cin.clear();
-            cin.ignore(100,'\n');
-        }
+
+        cin.clear();
+        cin.ignore(100,'\n');
+
         switch(choice){
         case 1:
             newDoctor.login();

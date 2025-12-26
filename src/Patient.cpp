@@ -6,6 +6,8 @@
 #include <cctype>
 #include <iomanip>
 #include <limits>
+#include <cstdlib>
+#include <ctime>
 
 #include "Patient.h"
 #include "validation.h"
@@ -138,8 +140,9 @@ void Patient::register_patient(){
     // patient profile registery function
     ifstream pat_data("patient_rec.txt",ios::in);
     string line;
+    srand(time(0));
 
-
+     int num = rand()%90+10;
 
     string conf_password;
     int choi;
@@ -228,8 +231,8 @@ cin.ignore(numeric_limits<streamsize>::max(), '\n');
         register_patient();
         break;
     case 2:
-        ++pat_countr;
-        id = "PA0" + to_string(pat_countr);
+
+        id = "PA"+to_string(num);
         save_patientrec();
         cout<<"Registration Succesfull"<<endl;
         return;
@@ -374,6 +377,9 @@ void Patient::book_appointment() {
     // get doctors data from doctors.txt and display let patient
     // pick their doctor
 
+    const int MAX_DOCTORS = 100;
+    const int MAX_APPOINTMENTS = 200;
+
     ifstream inputFile("doctors.txt");
 
     if (!inputFile.is_open()) {
@@ -381,8 +387,7 @@ void Patient::book_appointment() {
         return;
     }
 
-    const int MAX_DOCTORS = 100;
-    const int MAX_APPOINTMENTS = 200;
+
 
     // now using array fields to store doctors data and display
 
@@ -590,10 +595,12 @@ void Patient::book_appointment() {
 
     switch(choice){
     case 1:
-        return;
+        patient_dashboard();
+        break;
     case 2:
         cout<<"Goodbye , Exiting Program"<<endl;
         exit(0);
+        break;
     default:
         cout<<"Invalid input"<<endl;
         break;

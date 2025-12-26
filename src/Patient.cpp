@@ -6,6 +6,7 @@
 #include <cctype>
 #include <iomanip>
 #include <limits>
+
 #include "Patient.h"
 #include "validation.h"
 
@@ -16,15 +17,15 @@ void Patient::patient_dashboard(){
      int choice;
 
     cout<<"=========== PATIENT DASHBOARD ==========\n"
-        <<"         1. My Profile \n"
-        <<"         2. Book Appointment \n"
-        <<"         3. My Appointments \n"
-        <<"         4. Medical Records \n"
-        <<"         5. Logout \n"
-        <<"         6. Exit \n"
+        <<"==         1. My Profile              ==\n"
+        <<"==         2. Book Appointment        ==\n"
+        <<"==         3. My Appointments         ==\n"
+        <<"==         4. Medical Records         ==\n"
+        <<"==         5. Logout                  ==\n"
+        <<"==         6. Exit                    ==\n"
         <<"========================================\n"
         <<"Choose [1-6]: ";
-    do{
+    while(true){
     cin>>choice;
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -43,6 +44,7 @@ void Patient::patient_dashboard(){
         show_medrecords();
         break;
     case 5:
+        clear_data();
         return;
     case 6:
         exit(0);
@@ -50,7 +52,7 @@ void Patient::patient_dashboard(){
         cout<<"input valid value"<<endl;
         break;
     }
-    }while(choice!=6);
+    }
 
 }
 
@@ -62,6 +64,7 @@ void Patient::login(){
 
     string inputemail,inputpassword;
     bool found=false;
+
     cout<<endl;
     cout<<"========== Login ==========\n";
  do{
@@ -123,8 +126,6 @@ while(getline(file,line)){   // read whole line from text file until eof
 
 if(!found){
     cout<<"invalid email or password , try again:  ";
-     /*cin.ignore();
-    cin.get();*/
 }
 
     // reenter fun needed
@@ -210,13 +211,12 @@ cin.ignore(numeric_limits<streamsize>::max(), '\n');
       cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-    cout<<endl;
-
     cout<<"1. Edit Response \n"
         <<"2. Save Response \n"
         <<"3. Back to Menu \n"
         <<"4. Exit \n";
     cout<<"choose [1-4]: ";
+
 
     do{
     cin>>choi;
@@ -234,7 +234,8 @@ cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout<<"Registration Succesfull"<<endl;
         return;
     case 3:
-        return;
+        patient_dashboard();
+        break;
     case 4:
         exit(0);
     default:
@@ -325,23 +326,24 @@ void Patient::show_profile(){
 
     int choice;
     cout<<endl;
-    cout<<"======== "<<fName<<" Profile =========="<<endl;
-    cout<<"ID: "<<id<<endl;
-    cout<<"First Name: "<<fName<<endl;
-    cout <<"Last Name:  " << lName << endl;
-    cout <<"Email:  " << email << endl;
-    cout <<"Phone:  " << phone << endl;
-    cout <<"Date of Birth: " << year<<"-"<<month<<"-"<<day<< endl;
-    cout <<"password: "<<password<<endl;
-    cout<<"====================================="<<endl;
+    cout<<"         USER PROFILE         \n"
+        <<"-------------------------------\n"
+        <<"ID:   "<<id<<"             \n"
+        <<"First Name:   "<<fName<<"          \n"
+        <<"Last Name:   "<<lName<<"           \n"
+        <<"Email:   "<<email<<"           \n"
+        <<"Phone Number:   "<<phone<<"        \n"
+        <<"Password:   "<<password<<"         \n"
+        <<"Birth Day:   " << year << "-" << month << "-" << day << "\n"
+        <<"--------------------------------";
     cout<<endl;
 
-    cout<<"1. Edit Profile \n"
-        <<"2. Back to menu \n"
-        <<"3. Exit \n"
+
+    cout<<"1. Back to menu \n"
+        <<"2. Exit \n"
         <<"Choose [1-3]: ";
 
-    do{
+    while(true){
 
     cin>>choice;
     cin.clear();
@@ -349,17 +351,16 @@ void Patient::show_profile(){
 
     switch(choice){
     case 1:
-        cout<<"UC"<<endl;
+        patient_dashboard();
         break;
     case 2:
-        return;
-    case 3:
+        cout<<"Exiting Program , GoodBye "<<endl;
         exit(0);
     default:
-        cout<<"invalid choice "<<endl;
+        cout<<"Invalid choice :";
         break;
     }
-}while(choice!=3);
+};
 
 
 
@@ -452,7 +453,12 @@ void Patient::book_appointment() {
     string doc_id;
 
     cout << "\nEnter Doctor ID to book appointment: ";
-    cin >> doc_id;
+
+
+    cin>>doc_id;
+
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(),'\n');
     for(auto& id: doc_id){
        id= toupper(id);
     }
@@ -522,12 +528,16 @@ void Patient::book_appointment() {
            int retry_choice;
                 cout<<"1. Back to Menu \n"
                    <<"2. Exit \n"<<endl;
+
             cout<<"Choose [1-2]: "<<endl;
             do{
             cin>>retry_choice;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
                 switch(retry_choice){
                 case 1:
-                    return;
+                    patient_dashboard();
+                    break;
                 case 2:
                     exit(0);
                 default:
@@ -575,7 +585,8 @@ void Patient::book_appointment() {
     cout<<"1. Back to Menu \n"
         <<"2. Exit \n";
     cin>>choice;
-
+       cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');
 
     switch(choice){
     case 1:
@@ -597,6 +608,7 @@ void Patient::show_medrecords(){
 
 ifstream med_data("medical.txt");
 string line;
+bool found = false;
 
 while(getline(med_data,line)){
     stringstream ss(line);
@@ -612,26 +624,47 @@ while(getline(med_data,line)){
     getline(ss,apt,'|');
 
     if(id==pat_id){
-            cout<<"your medical record"<<endl;
-        cout<<pat_id
-            <<pat_name
-            <<doc_id
-            <<doc_name
-            <<diagnosis
-            <<prescription
-            <<advice
-            <<apt<<endl;
+        cout<<pat_name<<"'S Medical Record"<<endl;
+        cout<<"=================================="<<endl;
+        cout<<"Patient ID: "<<pat_id<<"\n"
+            <<"Patient Name: "<<pat_name<<"\n"
+            <<"Doctors ID: "<<doc_id<<"\n"
+            <<"Doctors Name: "<<doc_name<<"\n"
+            <<"Diagnosis Result: "<<diagnosis<<"\n"
+            <<"Prescription Med: "<<prescription<<"\n"
+            <<"Medical Advice: "<<advice<<"\n"
+            <<"Scheduled UPon: "<<apt<<endl;
+            found = true;
     }
 
+  }
+  if(!found){
+    cout<<"No Medical Records"<<endl;
+  }
+  int choi;
+    med_data.close();
+   cout<<"1. Back to menu \n"
+        <<"2. Exit \n"
+        <<"Choose [1-3]: ";
+  cin>>choi;
+  cin.clear();
+  cin.ignore(numeric_limits<streamsize>::max(), '\n');
+  switch(choi){
+case 1:
+    patient_dashboard();
+    break;
+case 2:
+    exit(0);
+default:
+    cout<<"Insert Valid input"<<endl;
+    break;
+
 
 
 }
 
-med_data.close();
-
-
-
 }
+
 
 void Patient::show_appointment(){
 
@@ -640,6 +673,7 @@ void Patient::show_appointment(){
 ifstream apt("appointment.txt");
 
 string line;
+bool found = false;
 
 while(getline(apt,line)){
     stringstream ss(line);
@@ -651,19 +685,54 @@ while(getline(apt,line)){
     getline(ss,doc_name,'|');
     getline(ss,day,'|');
     getline(ss,stat,'|');
-    if(id==pat_id){
-        cout<<"Your Appointment"<<endl;
-        cout<<pat_id
-            <<pat_name
-            <<doc_id
-            <<doc_name
-            <<day
-            <<stat;
+    if(id==pat_id ){
+
+
+        cout<<pat_name<<"'S Appointment"<<endl;
+         cout<<"=================================="<<endl;
+        cout<<"Patient ID: "<<pat_id<<"\n"
+            <<"Patient Name: "<<pat_name<<"\n"
+            <<"Doctors ID: "<<doc_id<<"\n"
+            <<"Doctors Name: "<<doc_name<<"\n"
+            <<"Schedule: "<<day<<"\n"
+            <<"Status: "<<stat<<endl;
+
+        found = true;
     }
-}
+
+    }
+
 apt.close();
+ if(!found){
+        cout<<"NO Appointment Scheduled "<<endl;
+    }
+ cout<<endl;
+        int choi;
+ cout   <<"1. Back to menu \n"
+        <<"2. Exit \n"
+        <<"Choose [1-3]: ";
+  cin>>choi;
+  cin.clear();
+  cin.ignore(numeric_limits<streamsize>::max(), '\n');
+  switch(choi){
+case 1:
+    patient_dashboard();
+    break;
+case 2:
+    exit(0);
+default:
+    cout<<"Insert Valid input"<<endl;
+    break;
+
+  }
 
 
 }
+
+
+
+
+
+
 
 

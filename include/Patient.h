@@ -19,12 +19,23 @@ class Patient
         void show_appointment();
         void show_medrecords();
         void save_patientrec();
+        void clear_data(){
+    id = "";
+    fName = "";
+    lName = "";
+    email = "";
+    phone = "";
+    password = "";
+    year = "";
+    month = "";
+    day = "";
+}
 
     private:
         // patient data members
          string fName ,lName, password,email,phone,id;
          string year , month , day;
-         int pat_countr=0;
+          int pat_countr=0;
 
 
 

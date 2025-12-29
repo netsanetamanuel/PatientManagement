@@ -1,1 +1,2 @@
-PA01|temesgen|D1003|Michael Lee|cancer|chemo|eat|Wed:08:00-11:00
+PA36|yoni|D1003|Michael Lee|chemo|trama|sleep|Wed:08:00-11:00
+PA33|addis|D1001|John Smith|cancer|chemo|sleep|Mon:8:00-12:00

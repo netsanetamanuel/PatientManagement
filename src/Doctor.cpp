@@ -34,7 +34,7 @@ switch(choice){
         break;
     case 3:
         show_profile();
-        return;
+        break;
     case 4:
        return;
     case 5:
@@ -57,9 +57,9 @@ void Doctor::login(){
     cout<<"----------Login---------\n";
     do{
         cout<<"Email: ";
-        cin>>input_email;
+        getline(cin,input_email);
         cout<<"Password: ";
-        cin>>input_pwd;
+        getline(cin,input_pwd);
 
         // read data
         fstream data("doctors.txt",ios::in);
@@ -115,8 +115,8 @@ void Doctor::show_patientrec(){
 cout<<"======== Show Patient Record ==========\n"
     <<"1. Search By Id \n"
     <<"2. Search By Name \n"
-    <<"3. Sort By Name (Descending or Ascending)\n"
-    <<"4. Sort By ID(Descening or Ascending) \n"
+    <<"3. Sort By Name \n"
+    <<"4. Sort By ID \n"
     <<"5. Show All Patients \n"
     <<"6. Delete records \n"
     <<"7. Back to Menu \n"
@@ -150,6 +150,8 @@ cout<<"======== Show Patient Record ==========\n"
     do{
     cin>>choice;
 
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     switch(choice){
     case 1:
@@ -183,7 +185,7 @@ cout<<"======== Show Patient Record ==========\n"
 
 
 }
-
+/*
 void Doctor::showallrec() {
 
 
@@ -296,7 +298,7 @@ void Doctor::showallrec() {
 
 
 }
-
+*/
 
 void Doctor::load_data(const string& doc_email){
 
@@ -339,7 +341,7 @@ data.close();
 }
 
 void Doctor::show_profile(){
-
+int choi;
     cout<<"========= Dr"<<fname<<" =============="<<endl;
         cout<<"ID: "<<id<<endl;
         cout<<"Name: "<<fname + " " +lname<<endl;
@@ -349,7 +351,25 @@ void Doctor::show_profile(){
         cout<<"Exprience: "<<exprience<<endl;
         cout<<"Duty Day: "<<slot<<endl;
         cout<<"Room: "<<room<<endl;
-return;
+    cout<<"1. Back to Menu \n"
+        <<"2. Exit \n"<<endl;
+    cout<<"Choose [1-2]"<<endl;
+    cin>>choi;
+    cin.clear();
+    cin.ignore();
+    switch(choi){
+case 1:
+    return;
+case 2:
+    exit(0);
+    break;
+default:
+    cout<<"Invalid input "<<endl;
+    break;
+
+
+    }
+
 
 }
 
@@ -357,12 +377,17 @@ void Doctor::show_apt(){
 
 ifstream data("appointment.txt");
 ofstream temp("temp.txt");
-ofstream med("medical.txt");
+ofstream med("medical.txt",ios::app);
 
     if (!data.is_open()) {
         cout << "Unable to open appointment file.\n";
         return;
     }
+    if(!med.is_open()){
+        cout<<"Unable to open file";
+        return;
+    }
+
 
     string line;
     bool found = false;
@@ -382,7 +407,7 @@ ofstream med("medical.txt");
         getline(ss, stat, '|');
 
         // If this appointment belongs to the logged-in doctor
-        if (id == doc_id && stat == "Scheduled") {
+        if (id == doc_id && stat=="Scheduled") {
 
             cout << "\n==============================\n";
             cout << "      APPOINTMENT FOUND\n";
@@ -401,13 +426,16 @@ ofstream med("medical.txt");
             cout << "> ";
             cin >> opt;
 
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
             if (opt == 0) {
                 stat = "Canceled";
                 cout << "\nAppointment CANCELED.\n";
             }
             else if (opt == 1) {
                 stat = "Confirmed";
-                cin.ignore();
+
 
                 cout << "Enter Diagnosis     : ";
                 getline(cin, diagnosis);

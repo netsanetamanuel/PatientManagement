@@ -1,2 +1,4 @@
-PA01|temesgen|sewunet|tem@gmail.com|9828992|1992-3-4|uytren
-PA02|netsnaet|amanuel|net@email.com|093344556|1924-4-6|pass123
+PA33|addis|ger|addi@net.com|09443312|1995-5-6|uyt789
+PA28|mitu|get|mitu@email.com|0922335553|1994-5-6|puo890
+PA37|yonathan |dan|yona@email.com|0991459998|1995-5-8|uyt7889
+PA36|yoni|daniel|yoni@.com|0922222222|2345-4-1|yoni12

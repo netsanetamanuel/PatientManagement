@@ -2,16 +2,47 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="src\Doctor.cpp" open="1" top="1" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\validation.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="8343" topLine="18" />
+			<Cursor1 position="106" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\Patient.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="14032" topLine="230" />
 		</Cursor>
 		<Folding>
-			<Collapse line="26" />
+			<Collapse line="19" />
+			<Collapse line="64" />
+			<Collapse line="140" />
+			<Collapse line="257" />
+			<Collapse line="274" />
+			<Collapse line="326" />
+			<Collapse line="612" />
+			<Collapse line="672" />
+		</Folding>
+	</File>
+	<File name="src\Doctor.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="8692" topLine="63" />
+		</Cursor>
+		<Folding>
+			<Collapse line="53" />
+			<Collapse line="108" />
+			<Collapse line="187" />
+			<Collapse line="302" />
+			<Collapse line="342" />
+		</Folding>
+	</File>
+	<File name="src\validation.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1653" topLine="21" />
+		</Cursor>
+		<Folding>
+			<Collapse line="13" />
+			<Collapse line="49" />
 			<Collapse line="56" />
-			<Collapse line="155" />
-			<Collapse line="267" />
-			<Collapse line="307" />
+			<Collapse line="69" />
 		</Folding>
 	</File>
 	<File name="include\Doctor.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -19,43 +50,31 @@
 			<Cursor1 position="410" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src\validation.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1607" topLine="15" />
-		</Cursor>
-		<Folding>
-			<Collapse line="10" />
-			<Collapse line="46" />
-			<Collapse line="53" />
-			<Collapse line="66" />
-		</Folding>
-	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="6" />
+			<Cursor1 position="2051" topLine="45" />
 		</Cursor>
 	</File>
-	<File name="src\Patient.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\handle_rec.cpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="14850" topLine="16" />
+			<Cursor1 position="4642" topLine="66" />
 		</Cursor>
 		<Folding>
-			<Collapse line="58" />
-			<Collapse line="135" />
-			<Collapse line="252" />
-			<Collapse line="269" />
-			<Collapse line="321" />
-			<Collapse line="369" />
+			<Collapse line="15" />
+			<Collapse line="38" />
+			<Collapse line="45" />
+			<Collapse line="80" />
+			<Collapse line="235" />
 		</Folding>
+	</File>
+	<File name="include\handle_rec.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="604" topLine="0" />
+		</Cursor>
 	</File>
 	<File name="include\Patient.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="557" topLine="11" />
-		</Cursor>
-	</File>
-	<File name="include\validation.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="315" topLine="0" />
+			<Cursor1 position="770" topLine="10" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

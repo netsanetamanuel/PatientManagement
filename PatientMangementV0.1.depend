@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1766656219 source:c:\users\cj\desktop\patientmgt\patientmangementv0.1\main.cpp
+1766751593 source:c:\users\cj\desktop\patientmgt\patientmangementv0.1\main.cpp
 	<iostream>
 	<fstream>
 	<cstdlib>
@@ -9,10 +9,10 @@
 	"handle_rec.h"
 	"validation.h"
 
-1766134310 c:\users\cj\desktop\patientmgt\patientmangementv0.1\include\patient.h
+1766780364 c:\users\cj\desktop\patientmgt\patientmangementv0.1\include\patient.h
 	<fstream>
 
-1766687511 source:c:\users\cj\desktop\patientmgt\patientmangementv0.1\src\patient.cpp
+1766991922 source:c:\users\cj\desktop\patientmgt\patientmangementv0.1\src\patient.cpp
 	<iostream>
 	<string>
 	<algorithm>
@@ -21,6 +21,8 @@
 	<cctype>
 	<iomanip>
 	<limits>
+	<cstdlib>
+	<ctime>
 	"Patient.h"
 	"validation.h"
 
@@ -35,10 +37,10 @@
 	<algorithm>
 	"string"
 
-1766134264 c:\users\cj\desktop\patientmgt\patientmangementv0.1\include\validation.h
+1766780808 c:\users\cj\desktop\patientmgt\patientmangementv0.1\include\validation.h
 	<string>
 
-1766134280 source:c:\users\cj\desktop\patientmgt\patientmangementv0.1\src\validation.cpp
+1766828769 source:c:\users\cj\desktop\patientmgt\patientmangementv0.1\src\validation.cpp
 	<iostream>
 	<algorithm>
 	<string>
@@ -47,7 +49,7 @@
 	<sstream>
 	"validation.h"
 
-1766687868 source:c:\users\cj\desktop\patientmgt\patientmangementv0.1\src\doctor.cpp
+1766992587 source:c:\users\cj\desktop\patientmgt\patientmangementv0.1\src\doctor.cpp
 	<iostream>
 	<string>
 	<fstream>
@@ -60,15 +62,17 @@
 1765960449 c:\users\cj\desktop\patientmgt\patientmangementv0.1\include\doctor.h
 	<string>
 
-1766667073 source:c:\users\cj\desktop\patientmgt\patientmangementv0.1\src\handle_rec.cpp
+1766918094 source:c:\users\cj\desktop\patientmgt\patientmangementv0.1\src\handle_rec.cpp
 	<iostream>
 	<algorithm>
 	<string>
 	<iomanip>
 	<fstream>
 	<sstream>
+	<limits>
 	"handle_rec.h"
+	"Doctor.h"
 
-1766666804 c:\users\cj\desktop\patientmgt\patientmangementv0.1\include\handle_rec.h
+1766778142 c:\users\cj\desktop\patientmgt\patientmangementv0.1\include\handle_rec.h
 	<string>
 

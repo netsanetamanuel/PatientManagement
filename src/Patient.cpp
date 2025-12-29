@@ -1,8 +1,10 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+
 #include <fstream>
 #include <sstream>
+
 #include <cctype>
 #include <iomanip>
 #include <limits>
@@ -219,8 +221,6 @@ cin.ignore(numeric_limits<streamsize>::max(), '\n');
         <<"3. Back to Menu \n"
         <<"4. Exit \n";
     cout<<"choose [1-4]: ";
-
-
     do{
     cin>>choi;
     cin.clear();
@@ -228,6 +228,7 @@ cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     switch(choi){
     case 1:
+        cout<<"Register Again"<<endl;
         register_patient();
         break;
     case 2:
@@ -368,8 +369,6 @@ void Patient::show_profile(){
 
 
 }
-
-
 
 void Patient::book_appointment() {
 
@@ -565,7 +564,7 @@ void Patient::book_appointment() {
     }
 
     string patientName = Patient::fName;
-    string status;
+    //string status;
 
     // store the patient and doctor to appointment.txt
     outFile << patientId << "|"
@@ -573,7 +572,7 @@ void Patient::book_appointment() {
             << doc_id << "|"
             << selectedDoctorName << "|"
             << selectedDoctorSlot << "|"  // Doctor's slot becomes appointment time
-            << status<<"Scheduled" << endl;
+            << "Scheduled" << endl;
 
     outFile.close();
 
@@ -665,8 +664,6 @@ case 2:
 default:
     cout<<"Insert Valid input"<<endl;
     break;
-
-
 
 }
 

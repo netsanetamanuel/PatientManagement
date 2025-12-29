@@ -4,9 +4,12 @@
 #include <iomanip>
 #include <fstream>
 #include <sstream>
+
 #include "validation.h"
 
 using namespace std;
+
+
 
 bool isPatient_registered(string& f_name, string& l_name){
 ifstream data("patient_rec.txt");
@@ -83,6 +86,10 @@ bool isValiddob(string& year ,string& month ,string& day){
           int days = stoi(day);
 
     if (months < 1 || months > 12)
+        return false;
+
+
+    if(year.length()<4)
         return false;
 
 

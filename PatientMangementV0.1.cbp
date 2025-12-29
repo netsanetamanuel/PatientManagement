@@ -36,10 +36,12 @@
 		</Compiler>
 		<Unit filename="include/Doctor.h" />
 		<Unit filename="include/Patient.h" />
+		<Unit filename="include/handle_rec.h" />
 		<Unit filename="include/validation.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Doctor.cpp" />
 		<Unit filename="src/Patient.cpp" />
+		<Unit filename="src/handle_rec.cpp" />
 		<Unit filename="src/validation.cpp" />
 		<Extensions />
 	</Project>

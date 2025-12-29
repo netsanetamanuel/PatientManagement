@@ -4,6 +4,8 @@
 #include <string>
 using namespace std;
 
+
+
 bool isValidemail(string& email);
 bool isValidpass(string& pass);
 bool isPatient_registered(string& ,string&);
